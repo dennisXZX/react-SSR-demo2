@@ -1,10 +1,18 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import Home from '../client/components/Home';
+import { StaticRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import Routes from '../client/Routes';
 
-export default () => {
+export default (req, store) => {
   // render the React component into a string
-  const content = renderToString(<Home />);
+  const content = renderToString(
+    <Provider store={store}>
+      <StaticRouter location={req.path} context={{}}>
+        <Routes />
+      </StaticRouter>
+    </Provider>
+  );
 
   // prepare the rendered content and insert the client public/bundle.js for browser
   const html = `
