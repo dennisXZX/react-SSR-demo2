@@ -2,6 +2,10 @@
 
 #### Steps
 
+- run `npm install` to install dependencies
+- run `npm start dev` to run the app server
+- default port: localhost:3000
+
 #### Server side rendering (SSR)
 
 Since we need to use JSX on the server side, so the code on the server need to run through Webpack and Babel in order for Node.js to understand it.
