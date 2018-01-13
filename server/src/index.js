@@ -11,21 +11,23 @@ const app = express();
 app.use(express.static('public'));
 
 app.get('*', (req, res) => {
-  // create a store
+
   const store = createStore();
 
   /*
-   first figure out what components need to be rendered based on URL using matchRoutes(),
-   then loop over routes in an array, execute loadData() if there is one in each component,
-   after calling all the loadDate methods, the store is initialized with all the data from API.
-   this returns an array of Promise in the end.
+   need to figure out what components need to be rendered based on URL using matchRoutes(),
+   loop over all the routes, execute loadData() if there is one in the component,
+   after calling all the loadDate methods, the store should be initialized with all the data from API.
   */
-  const promises = matchRoutes(Routes, req.path).map(({ route }) => {
-    return route.loadData ? route.loadData(store) : null;
-  });
+  const promises = matchRoutes(Routes, req.path)
+    .map(({ route }) => {
+      console.log('route: ', route);
+      return route.loadData ? route.loadData(store) : null;
+    });
 
   Promise.all(promises).then(() => {
-    // send an HTML markup string to browser
+    // when all the promises have resolved
+    // we send an HTML markup string to browser
     // the req is passed to renderer in order to retrieve the current path
     res.send(renderer(req, store));
   });
