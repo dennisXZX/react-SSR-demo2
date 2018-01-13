@@ -3,6 +3,7 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
+import serialize from 'serialize-javascript';
 import Routes from '../client/Routes';
 
 export default (req, store) => {
@@ -27,7 +28,7 @@ export default (req, store) => {
         attach the store to window object so the store can be accessed on the client side
         -->
         <script type="text/javascript">
-          window.INITIAL_STATE = ${JSON.stringify(store.getState())}
+          window.INITIAL_STATE = ${serialize(store.getState())}
         </script>
         <script src="bundle.js"></script>
       </body>

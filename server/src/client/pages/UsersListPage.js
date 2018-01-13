@@ -31,6 +31,7 @@ function mapStateToProps(state) {
   }
 }
 
+// manually dispatch an action from the store
 function loadData(store) {
   return store.dispatch(fetchUsers());
 }
