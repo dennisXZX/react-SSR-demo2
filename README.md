@@ -1,5 +1,7 @@
 ## Server-side Rendering React App
 
+Powered by React, Redux, Axios, Helmet
+
 #### Steps
 
 - run `npm install` to install dependencies
