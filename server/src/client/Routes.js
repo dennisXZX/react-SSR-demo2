@@ -1,4 +1,5 @@
 import React from 'react';
+import App from './App';
 import HomePage from './pages/HomePage';
 import UsersListPage from './pages/UsersListPage';
 
@@ -6,12 +7,17 @@ import UsersListPage from './pages/UsersListPage';
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 export default [
   {
-    ...HomePage,
-    path: '/',
-    exact: true
-  },
-  {
-    ...UsersListPage,
-    path: '/users',
+    ...App,
+    routes: [
+      {
+        ...HomePage,
+        path: '/',
+        exact: true
+      },
+      {
+        ...UsersListPage,
+        path: '/users',
+      }
+    ]
   }
 ];
