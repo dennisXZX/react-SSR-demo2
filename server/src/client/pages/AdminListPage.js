@@ -10,15 +10,15 @@ class AdminListPage extends Component {
 
   renderAdmins() {
     return this.props.admins.map(admin => {
-      return <li key={admin.id}>{admin.name}</li>
+      return <li key={admin.id} className="collection-item">{admin.name}</li>
     })
   }
 
   render() {
     return (
       <div>
-        <h3>Protected list of admins</h3>
-        <ul>
+        <ul className="collection with-header">
+          <li className="collection-header"><h4>Protected list of admins</h4></li>
           {this.renderAdmins()}
         </ul>
       </div>

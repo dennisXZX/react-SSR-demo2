@@ -10,7 +10,7 @@ class UsersListPage extends Component {
 
   renderUsers() {
     return this.props.users.map(user => {
-      return <li key={user.id}>{user.name}</li>;
+      return <li key={user.id} className="collection-item">{user.name}</li>;
     });
   }
 
@@ -27,8 +27,8 @@ class UsersListPage extends Component {
     return (
       <div>
         {this.head()}
-        Here is a list of users:
-        <ul>
+        <ul className="collection with-header">
+          <li className="collection-header"><h4>Here is a list of users:</h4></li>
           {this.renderUsers()}
         </ul>
       </div>
