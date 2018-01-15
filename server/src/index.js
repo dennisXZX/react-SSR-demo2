@@ -31,14 +31,36 @@ app.get('*', (req, res) => {
   const promises = matchRoutes(Routes, req.path)
     .map(({ route }) => {
       return route.loadData ? route.loadData(store) : null;
-    });
+    })
+    // wrap the promise into promise so we can handle them manually
+    .map(promise => {
+      if (promise) {
+        return new Promise((resolve, reject) => {
+          // always resolve the promise
+          promise.then(resolve).catch(resolve);
+        })
+      }
+    })
 
-  Promise.all(promises).then(() => {
-    // when all the promises have resolved
-    // we send an HTML markup string to browser
-    // the req is passed to renderer in order to retrieve the current path
-    res.send(renderer(req, store));
-  });
+  Promise.all(promises)
+    .then(() => {
+      const context = {};
+      const content = renderer(req, store, context);
+
+      if (context.url) {
+        return res.redirect(301, context.url);
+      }
+
+      // send a 404 status if there is an error
+      if (context.notFound) {
+        res.status(404);
+      }
+
+      // when all the promises have resolved
+      // we send an HTML markup string to browser
+      // the req is passed to renderer in order to retrieve the current path
+      res.send(content);
+    });
 })
 
 app.listen(3000, () => {

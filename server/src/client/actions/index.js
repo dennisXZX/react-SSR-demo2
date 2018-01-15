@@ -19,3 +19,15 @@ export const fetchCurrentUser = () => async (dispatch, getState, axiosInstance) 
     payload: res
   })
 };
+
+export const FETCH_ADMINS = 'fetch_users';
+export const fetchAdmins = () => async (dispatch, getState, axiosInstance) => {
+  // retrieve users data from API asynchronously
+  const res = await axiosInstance.get('/admins');
+
+  // dispatch an action using redux-thunk
+  dispatch({
+    type: FETCH_USERS,
+    payload: res
+  })
+};
